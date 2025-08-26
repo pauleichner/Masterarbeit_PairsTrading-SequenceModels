@@ -65,7 +65,7 @@ def performFEATURESearch(FeaturesTuple, SpreadName):  #,  lookback, horizon, hid
     total_n    = len(Spread)
     used_n     = int(total_n * TotalUsed)
     features_used   = dataFeatures[:used_n]
-    train_size   = int(used_n * TrainTestS)       # nochmal 80% davon fürs Training
+    train_size   = int(used_n * TrainTestS)
     train_vals      = features_used[:train_size]
     test_vals       = features_used[train_size:]
 
@@ -86,29 +86,7 @@ def performFEATURESearch(FeaturesTuple, SpreadName):  #,  lookback, horizon, hid
         X_test_full,  Y_test_full  = createDataset(test_vals,  lookback, horizon)
         
         print(f"Fold {fold}: train Größe = {len(train_index)}, test Größe = {len(test_index)}")
-
-        with torch.no_grad():
-            naive_pred = X_test_full[:, -1, 0]
-            true_vals  = Y_test_full[:, -1, 0]
-
-            # MSE / RMSE
-            mse_naive  = torch.mean((naive_pred - true_vals) ** 2).item()
-            rmse_naive = np.sqrt(mse_naive)
-
-            # MAE
-            mae_naive = torch.mean(torch.abs(naive_pred - true_vals)).item()
-
-            # R^2
-            var_true = torch.var(true_vals, unbiased=False).item()
-            r2_naive = 1 - mse_naive / var_true
-
-            # Accuracy (immer "Up" als Baseline)
-            true_dir  = (true_vals > naive_pred).long()
-            pred_dir  = torch.ones_like(true_dir)          # immer Up
-            acc_naive = (pred_dir == true_dir).float().mean().item()
-
-        print(f"Naive   RMSE={rmse_naive:.4f}, MAE={mae_naive:.4f}, R²={r2_naive:.4f}, Acc={acc_naive:.4f}")
-
+        
         Y_train = Y_train_full[:, -1, 0].unsqueeze(1)
         Y_val   = Y_test_full[:,  -1, 0].unsqueeze(1)
 
@@ -717,4 +695,5 @@ for aHor in hori:
 
 # best = df_results.loc[df_results['MAE_Valid'].idxmin()]
 # print("Beste Konfiguration nach Valid-MAE:")
+
 # print(best.to_frame().T)
