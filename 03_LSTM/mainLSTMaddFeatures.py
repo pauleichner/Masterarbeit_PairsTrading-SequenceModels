@@ -96,9 +96,8 @@ def performFEATURESearch(FeaturesTuple, NameSpread):
             var_true = torch.var(true_vals, unbiased=False).item()
             r2_naive = 1 - mse_naive / var_true
 
-            # Accuracy (immer "Up" als Baseline)
             true_dir  = (true_vals > naive_pred).long()
-            pred_dir  = torch.ones_like(true_dir)          # immer Up
+            pred_dir  = torch.ones_like(true_dir)
             acc_naive = (pred_dir == true_dir).float().mean().item()
 
     
@@ -329,4 +328,5 @@ for aSpread in SpreadArray:
     #     all_results[feature_label] = conf
 
     # for label, conf in all_results.items():
+
     #     print(f"{label}: {conf}")
