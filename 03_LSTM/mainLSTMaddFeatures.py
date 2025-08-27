@@ -103,7 +103,6 @@ def performFEATURESearch(FeaturesTuple, NameSpread):
     
         print(f"Naive   RMSE={rmse_naive:.4f}, MAE={mae_naive:.4f}, R²={r2_naive:.4f}, Acc={acc_naive:.4f}")
 
-        # jetzt die echten Y-Vektoren bauen
         Y_train = Y_train_full[:, -1, 0].unsqueeze(1)
         Y_val   = Y_test_full[:,  -1, 0].unsqueeze(1)
 
@@ -330,3 +329,4 @@ for aSpread in SpreadArray:
     # for label, conf in all_results.items():
 
     #     print(f"{label}: {conf}")
+
