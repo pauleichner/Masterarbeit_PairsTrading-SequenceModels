@@ -68,9 +68,6 @@ print(f"R²   = {np.mean(r2_list):.4f} | {np.std(r2_list):.4f}")
 print(f"ACC  = {np.mean(acc_list):.4f} | {np.std(acc_list):.4f}")
 
 
-
-
-
 arma_values1 = {
     'RMSE_Valid': np.mean(rmse_list),
     'RMSE_Std'  : np.std(rmse_list),
@@ -82,15 +79,16 @@ arma_values1 = {
     'ACC_Std'   : np.std(acc_list),
 }
 
-# 2) Ausgabe der Cross-Validation Results
+
 print("=== Cross-Validation Results ===")
 print(f"Average RMSE : {arma_values1['RMSE_Valid']:.4f} ± {arma_values1['RMSE_Std']:.4f}")
 print(f"Average MAE  : {arma_values1['MAE_Valid']:.4f} ± {arma_values1['MAE_Std']:.4f}")
 print(f"Average R²   : {arma_values1['R2_Valid']:.4f} ± {arma_values1['R2_Std']:.4f}")
 print(f"Average Acc  : {arma_values1['ACC_Valid']:.4f} ± {arma_values1['ACC_Std']:.4f}")
 
-# 3) Ausgabe im gewünschten Dict-Format
+
 print("\narma_values5 = {")
 for key, val in arma_values1.items():
     print(f"    '{key}': {val:.4f},")
+
 print("}")
